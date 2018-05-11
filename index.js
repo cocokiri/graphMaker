@@ -4,43 +4,8 @@ console.log("SVG", SVG);
 
 const PASTELLHEX = ['#a7ff74', '#ffe8e8', '#81b4ff', '#ffa9a9', '#f7ffa6', '#c5bbff', '#69faff', '#ffd29b', '#98ffc0'];
 
-const container = new SVG("container").size(window.innerWidth, window.innerHeight);
+// const container = new SVG("container").size(window.innerWidth, window.innerHeight);
 
-const data = [
-    {
-        name: 'Weights + Energy',
-        children: [
-            'Force + Motion'
-        ]
-    },
-    {
-        name: 'Force + Motion',
-        children: ['Energy']
-    },
-    {
-        name: 'Heat',
-        children: ['Energy', 'Friction']
-
-    },
-    {
-        name: 'Energy',
-        children: ['Entropy']
-    },
-    {
-        name: 'Entropy',
-        children: []
-    },
-    {
-        //parent: 'Visualizing Data',
-        name: 'Graphing',
-        tag: 'toolbox',
-        children: [] //'Plotting in 2D'
-    },
-    {
-        name: "Friction",
-        children: ["Entropy"]
-    }
-]
 const Node = class { //saves in object to have memory off variables (assignment by reference)...
     constructor(parameters) {
         const presets = {
@@ -123,7 +88,6 @@ const Graph = class {
         this.calcHierachy();
         this.makeLayers();
         this.update()
-
     }
 
     update() {
@@ -183,7 +147,7 @@ const Graph = class {
 }
 
 const G = new Graph(nodes);
-window.G = G;
+// window.G = G;
 console.log(G.nodes);
 const e = G.getNode('Energy');
 
@@ -223,16 +187,12 @@ let textViews = G.nodes.map(d => {
         .attr("fill", "white")
         .attr("x", d.view.normX)
         .attr("y", d.view.normY);
-
     return c;
-
 });
 
 function pathRound(d) {
     const f = Object.assign({}, d.from);
     const t = Object.assign({}, d.to);
-
-
     f.x = f.normX;
     f.y = f.normY;
 
@@ -245,7 +205,6 @@ function pathRound(d) {
     const dY = t.y - f.y;
 
     return `M ${f.x} ${f.y} Q ${f.x + dX/4} ${f.y - dX/10}, ${f.x + dX/2} ${f.y} T ${t.x} ${t.y}`
-
     // return `M ${f.x} ${f.y} Q ${f.x + dX/4} ${f.y - 50}, ${f.x + dX/2} ${f.y} T ${t.x} ${t.y}`
     //https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Paths
     //"M10 80 Q 52.5 10, 95 80 T 180 80"
